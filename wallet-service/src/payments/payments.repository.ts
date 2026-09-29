@@ -66,4 +66,19 @@ export class PaymentsRepository {
       return sum;
     });
   }
+
+  async createUserWithTopUp(userId: number, amount: number): Promise<void> {
+    await this.dataSource.transaction(async (manager: EntityManager) => {
+      await manager.insert(User, {
+        id: userId,
+        balance: amount.toFixed(2),
+      });
+
+      await manager.insert(PaymentHistory, {
+        userId,
+        action: PaymentAction.TOP_UP,
+        amount: amount.toFixed(2),
+      });
+    });
+  }
 }

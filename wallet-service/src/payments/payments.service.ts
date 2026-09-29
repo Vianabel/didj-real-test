@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { PaymentsRepository } from './payments.repository';
 import { DeductBalanceDto } from '../dto/deduct-balance.dto';
 import { User } from '../entities/user.entity';
@@ -8,8 +8,18 @@ import {
 } from '../entities/payment-history.entity';
 
 @Injectable()
-export class PaymentsService {
+export class PaymentsService implements OnModuleInit {
   constructor(private readonly repository: PaymentsRepository) {}
+
+  async onModuleInit(): Promise<void> {
+    const userId = 1;
+    const initialAmount = 500;
+
+    const user = await this.repository.findUser(userId);
+    if (!user) {
+      await this.repository.createUserWithTopUp(userId, initialAmount);
+    }
+  }
 
   async deduct(
     userId: number,
