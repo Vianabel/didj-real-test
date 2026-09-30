@@ -48,9 +48,9 @@ npm run test
 
 ## Эндпоинты
 
-- `POST /users/:id/payments` — списание (тело: `{"amount": 50}`)
-- `GET /users/:id/balance` — баланс
-- `GET /users/:id/payments` — история
-- `GET /api/docs` — Swagger
+- `POST /users/:id/payments` – списание (тело: `{"amount": 50}`)
+- `GET /users/:id/balance` – баланс
+- `GET /users/:id/payments` – история
+- `GET /api/docs` – Swagger
 
 Каждая операция пишется в payment_history, а после неё баланс пересчитывается из истории (пополнение/возврат – в плюс, покупка – в минус) в одной транзакции.
