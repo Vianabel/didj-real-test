@@ -13,12 +13,11 @@ import { PaymentsModule } from './payments/payments.module';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.getOrThrow<string>('POSTGRES_HOST'),
-        port: configService.getOrThrow<number>('POSTGRES_PORT'),
+        port: parseInt(configService.getOrThrow<string>('POSTGRES_PORT'), 10),
         username: configService.getOrThrow<string>('POSTGRES_USER'),
         password: configService.getOrThrow<string>('POSTGRES_PASSWORD'),
         database: configService.getOrThrow<string>('POSTGRES_DB'),
         autoLoadEntities: true,
-        synchronize: true,
       }),
       inject: [ConfigService],
     }),
