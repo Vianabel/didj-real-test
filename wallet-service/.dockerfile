@@ -1,4 +1,4 @@
-FROM node:22.14-alpine AS builder
+FROM node:22.14-alpine AS build
 WORKDIR /app
 
 COPY package*.json ./
@@ -18,6 +18,6 @@ COPY --from=build /app/dist ./dist
 
 USER node
 
-EXPOSE 3408
+EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
+CMD ["sh", "-c", "npm run migration:run && node dist/main.js"]
