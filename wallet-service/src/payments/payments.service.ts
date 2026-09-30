@@ -32,7 +32,7 @@ export class PaymentsService implements OnModuleInit {
       amount,
     );
     if (newBalance === null) {
-      throw new NotFoundException(`User ${userId} does not found`);
+      throw new NotFoundException(`Пользователь ${userId} не найден`);
     }
     return { balance: newBalance };
   }
@@ -41,7 +41,7 @@ export class PaymentsService implements OnModuleInit {
     const user: User | null = await this.repository.findUser(userId);
 
     if (!user) {
-      throw new NotFoundException(`User ${userId} does not found`);
+      throw new NotFoundException(`Пользователь ${userId} не найден`);
     }
 
     return { balance: user.balance };

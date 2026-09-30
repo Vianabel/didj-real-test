@@ -37,7 +37,7 @@ export class PaymentsRepository {
       if (!user) return null;
 
       if (parseFloat(user.balance) < parseFloat(amount)) {
-        throw new BadRequestException('Insufficient balance');
+        throw new BadRequestException('Недостаточно средств');
       }
 
       await manager.insert(PaymentHistory, {
